@@ -17,6 +17,12 @@ defmodule SapphireWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/project", ProjectController, :index
+    get "/project/new", ProjectController, :new
+    post "/project", ProjectController, :create
+    get "/project/:project_id/endpoint", EndpointController, :index
+    get "/project/:project_id/endpoint/new", EndpointController, :new
+    post "/project/:project_id/endpoint", EndpointController, :create
   end
 
   # Other scopes may use custom stacks.

@@ -7,8 +7,9 @@ defmodule Sapphire.Repo.Migrations.CreateConfigs do
       add :type, :string
       add :delay, :integer
       add :is_selected, :boolean, default: false, null: false
-      add :body, :string
+      add :body, :text
       add :status_code, :integer
+      add :param, :text
       add :endpoint_id, references(:endpoints, on_delete: :nothing)
 
       timestamps()

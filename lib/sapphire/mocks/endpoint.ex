@@ -1,12 +1,11 @@
 defmodule Sapphire.Mocks.Endpoint do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias Sapphire.Mocks.Project
 
   schema "endpoints" do
     field :name, :string
-    field :project_id, :id
-
+    belongs_to :project, Project
     timestamps()
   end
 
