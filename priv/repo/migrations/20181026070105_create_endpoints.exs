@@ -4,7 +4,7 @@ defmodule Sapphire.Repo.Migrations.CreateEndpoints do
   def change do
     create table(:endpoints) do
       add :name, :string
-      add :project_id, references(:projects, on_delete: :nothing)
+      add :project_id, references(:projects, on_delete: :delete_all)
 
       timestamps()
     end

@@ -4,12 +4,13 @@ defmodule Sapphire.Mocks.Config do
   alias Sapphire.Mocks.Endpoint
 
   schema "configs" do
-    field :body, :string
+    field :body, :map
     field :delay, :integer
     field :is_selected, :boolean, default: false
     field :status_code, :integer
     field :type, :string
     field :url, :string
+    field :param, :map
     belongs_to :endpoint, Endpoint
     timestamps()
   end

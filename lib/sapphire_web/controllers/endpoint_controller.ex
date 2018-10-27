@@ -3,7 +3,7 @@ defmodule SapphireWeb.EndpointController do
 
   alias Sapphire.Mocks.Endpoint
   alias Sapphire.Mocks
- alias Sapphire.Mocks.Config
+  alias Sapphire.Mocks.Config
 
   def index(conn, _params) do
     endpoints = Mocks.list_endpoints()

@@ -5,7 +5,11 @@
 
   <%= inputs_for f, :configs, fn c -> %>
     <%= text_input c, :url %>
+    <%= text_input c, :type %>
+    <%= text_input c, :delay %>
+    <%= textarea c, :body %>
+    <%= textarea c, :param %>
   <% end %>
   
   <%= submit "Submit" %>
-<% end %>
+<% end %>      
