@@ -20,6 +20,7 @@ defmodule SapphireWeb.Router do
     get "/project", ProjectController, :index
     get "/project/new", ProjectController, :new
     post "/project", ProjectController, :create
+    
     get "/project/:project_id/endpoint", EndpointController, :index
     get "/project/:project_id/endpoint/new", EndpointController, :new
     post "/project/:project_id/endpoint", EndpointController, :create

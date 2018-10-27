@@ -1,7 +1,7 @@
 defmodule Sapphire.Mocks.Config do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias Sapphire.Mocks.Endpoint
 
   schema "configs" do
     field :body, :string
@@ -10,8 +10,7 @@ defmodule Sapphire.Mocks.Config do
     field :status_code, :integer
     field :type, :string
     field :url, :string
-    field :endpoint_id, :id
-
+    belongs_to :endpoint, Endpoint
     timestamps()
   end
 
