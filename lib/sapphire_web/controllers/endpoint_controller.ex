@@ -16,7 +16,9 @@ defmodule SapphireWeb.EndpointController do
   def create(conn, %{"endpoint" => endpoint}) do
     case Mocks.create_endpoint(endpoint) do
       {:ok, endpoint} -> redirect(conn, to: endpoint_path(conn, :index, 1))
-      {:error, error} -> render conn, "new.html", changeset: error
+      {:error, error} -> 
+      IO.inspect error
+      render conn, "new.html", changeset: error
     end
   end
 end

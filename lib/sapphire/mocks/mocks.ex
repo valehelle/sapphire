@@ -7,7 +7,7 @@ defmodule Sapphire.Mocks do
   alias Sapphire.Repo
 
   alias Sapphire.Mocks.Project
-
+  alias Sapphire.Mocks.Config
   @doc """
   Returns the list of projects.
 
@@ -145,9 +145,17 @@ defmodule Sapphire.Mocks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_endpoint(attrs \\ %{}) do
-    %Endpoint{}
-    |> Endpoint.changeset(attrs)
+  def create_endpoint(%{"name" => endpoint_name, "configs" => configs_attr}) do
+    endpoint_attrs =  %{name: endpoint_name}
+    config_attr = Map.get(configs_attr, "0")
+    |> Map.put("status_code", 200)
+    IO.inspect(config_attr)
+
+    endpoint = Endpoint.changeset(%Endpoint{}, endpoint_attrs)
+    config = Config.changeset(%Config{}, config_attr)
+    
+
+    Ecto.Changeset.put_assoc(endpoint, :configs, [config])
     |> Repo.insert()
   end
 
@@ -198,7 +206,7 @@ defmodule Sapphire.Mocks do
     Endpoint.changeset(endpoint, %{})
   end
 
-  alias Sapphire.Mocks.Config
+  
 
   @doc """
   Returns the list of configs.
