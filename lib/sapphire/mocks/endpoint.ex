@@ -2,18 +2,23 @@ defmodule Sapphire.Mocks.Endpoint do
   use Ecto.Schema
   import Ecto.Changeset
   alias Sapphire.Mocks.Project
-  alias Sapphire.Mocks.Config
   schema "endpoints" do
     field :name, :string
+    field :url, :string
+    field :type, :string
+    field :delay, :string
+    field :body, :string
+    field :status_code, :integer
+
     belongs_to :project, Project
-    has_many :configs, Config
+
     timestamps()
   end
 
   @doc false
   def changeset(endpoint, attrs) do
     endpoint
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code])
     |> validate_required([:name])
   end
 end
