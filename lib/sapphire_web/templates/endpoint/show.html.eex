@@ -1,0 +1,4 @@
+<h2>Show</h2>
+    <h1><%= @endpoint.name %></h1>
+    <h6><%= @endpoint.url %></h6>
+    <h6><%= @endpoint.id %></h6>

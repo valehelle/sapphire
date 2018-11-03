@@ -1,4 +1,7 @@
 <h2>Endpoint</h2>
   <%= for endpoint <- @endpoints do %>
     <h1><%= endpoint.name %></h1>
+    <h6><%= endpoint.url %></h6>
+    <h6><%= endpoint.id %></h6>
+    <h6><%= endpoint.project_id %></h6>
   <% end %>

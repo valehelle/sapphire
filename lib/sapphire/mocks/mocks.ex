@@ -34,7 +34,7 @@ defmodule Sapphire.Mocks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project!(id), do: Repo.get!(Project, id)
+  def get_project(id), do: Repo.get!(Project, id)
 
   @doc """
   Creates a project.
@@ -112,8 +112,11 @@ defmodule Sapphire.Mocks do
       [%Endpoint{}, ...]
 
   """
-  def list_endpoints do
-    Repo.all(Endpoint)
+  def list_endpoints(%{"project_id" => project_id}) do
+    query = from e in Endpoint, 
+            where: e.project_id == ^project_id,
+            order_by: e.inserted_at
+    Repo.all(query)
   end
 
   @doc """
@@ -144,16 +147,38 @@ defmodule Sapphire.Mocks do
       {:error, %Ecto.Changeset{}}
 
   """
+  def get_endpoint(%{"project_id" => project_id, "endpoint_id" => endpoint_id}) do
+    Repo.get_by(Endpoint, id: endpoint_id)
+  end
 
-  def get_endpoint(routes) do
+  def get_endpoint(%{"routes" => routes}) do
     url = Enum.join(routes, "/") 
     Repo.get_by(Endpoint, url: url)
   end
 
-  def create_endpoint(attrs) do
-    endpoint_attrs = Map.put(attrs, "status_code", 200)
+def get_endpoint(url) do
+    Repo.get_by(Endpoint, url: url)
+  end
 
-    Endpoint.changeset(%Endpoint{}, endpoint_attrs)
+  defp check_unique_url(attrs) do
+    url = Map.get(attrs, "url")
+    project_id = Map.get(attrs, "project_id")
+    case get_endpoint(url) do
+      nil -> Map.put(attrs, "url_is_unique", true)
+      _   -> Map.put(attrs, "url_is_unique", false)
+    end
+  end
+
+  def create_endpoint(params) do
+    project_id = Map.get(params, "project_id")
+
+    endpoint_attrs = Map.get(params, "endpoint")
+    |> Map.put("status_code", 200)
+    |> Map.put("project_id", project_id)
+    |> check_unique_url()
+
+    %Endpoint{}
+    |> Endpoint.changeset(endpoint_attrs)
     |> Repo.insert()
   end
 

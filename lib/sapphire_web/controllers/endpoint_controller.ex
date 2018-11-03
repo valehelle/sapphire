@@ -4,16 +4,21 @@ defmodule SapphireWeb.EndpointController do
   alias Sapphire.Mocks.Endpoint
   alias Sapphire.Mocks
 
-  def index(conn, _params) do
-    endpoints = Mocks.list_endpoints()
+  def index(conn, params) do
+    endpoints = Mocks.list_endpoints(params)
     render conn, "index.html", endpoints: endpoints
   end
   def new(conn, _params) do
     changeset = Mocks.change_endpoint(%Endpoint{})
     render conn, "new.html", changeset: changeset
   end
-  def create(conn, %{"endpoint" => endpoint}) do
-    case Mocks.create_endpoint(endpoint) do
+  
+  def show(conn, params) do
+    endpoint = Mocks.get_endpoint(params)
+    render conn, "show.html", endpoint: endpoint
+  end
+  def create(conn, params) do
+    case Mocks.create_endpoint(params) do
       {:ok, endpoint} -> redirect(conn, to: endpoint_path(conn, :index, 1))
       {:error, error} -> render conn, "new.html", changeset: error
     end
