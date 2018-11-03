@@ -21,6 +21,7 @@ defmodule Sapphire.Mocks.Endpoint do
     |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique])
     |> validate_required([:name])
     |> validate_unique_url()
+    |> validate_json_format()
   end
 
   defp validate_unique_url(changeset) do 
@@ -31,6 +32,24 @@ defmodule Sapphire.Mocks.Endpoint do
         [url: "url must be unique"]
       end
 
+    end
+  end
+  defp validate_json_format(changeset) do 
+    changeset = validate_change changeset, :body, fn :body, body  ->
+      if is_json(body) do
+        []
+      else
+        [body: "not in json format"]
+      end
+    end
+  end
+
+  defp is_json(str) do
+    try do 
+      Poison.Parser.parse!(str)
+      true
+    rescue
+      Poison.SyntaxError -> false
     end
   end
 

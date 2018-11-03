@@ -176,7 +176,7 @@ defmodule Sapphire.Mocks do
     |> Map.put("status_code", 200)
     |> Map.put("project_id", project_id)
     |> check_unique_url()
-
+    
     %Endpoint{}
     |> Endpoint.changeset(endpoint_attrs)
     |> Repo.insert()

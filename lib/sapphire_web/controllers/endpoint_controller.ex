@@ -8,9 +8,9 @@ defmodule SapphireWeb.EndpointController do
     endpoints = Mocks.list_endpoints(params)
     render conn, "index.html", endpoints: endpoints
   end
-  def new(conn, _params) do
+  def new(conn, %{"project_id" => project_id}) do
     changeset = Mocks.change_endpoint(%Endpoint{})
-    render conn, "new.html", changeset: changeset
+    render conn, "new.html", changeset: changeset, project_id: project_id
   end
   
   def show(conn, params) do
@@ -19,8 +19,8 @@ defmodule SapphireWeb.EndpointController do
   end
   def create(conn, params) do
     case Mocks.create_endpoint(params) do
-      {:ok, endpoint} -> redirect(conn, to: endpoint_path(conn, :index, 1))
-      {:error, error} -> render conn, "new.html", changeset: error
+      {:ok, endpoint} -> redirect(conn, to: endpoint_path(conn, :index, endpoint.project_id))
+      {:error, error} -> render conn, "new.html", changeset: error, project_id: Map.get(params, "project_id")
     end
   end
   def get_api(conn, params) do

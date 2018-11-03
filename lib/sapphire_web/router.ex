@@ -18,9 +18,11 @@ defmodule SapphireWeb.Router do
 
     get "/", PageController, :index
     get "/project", ProjectController, :index
-    get "/project/:project_id", ProjectController, :show
-    get "/project/new", ProjectController, :new
     post "/project", ProjectController, :create
+    get "/project/new", ProjectController, :new
+    get "/project/:project_id", ProjectController, :show
+    
+    
     
     get "/project/:project_id/endpoint", EndpointController, :index
     get "/project/:project_id/endpoint/new", EndpointController, :new
@@ -28,6 +30,9 @@ defmodule SapphireWeb.Router do
     get "/project/:project_id/endpoint/:endpoint_id", EndpointController, :show
 
     get "/project/:project_id/api/*routes", EndpointController, :get_api
+    post "/project/:project_id/api/*routes", EndpointController, :get_api
+    put "/project/:project_id/api/*routes", EndpointController, :get_api
+    delete "/project/:project_id/api/*routes", EndpointController, :get_api
   end
 
   # Other scopes may use custom stacks.

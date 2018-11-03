@@ -1,4 +1,4 @@
-<%= form_for @changeset, endpoint_path(@conn, :create, 1), fn f -> %>
+<%= form_for @changeset, endpoint_path(@conn, :create, @project_id), fn f -> %>
 
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
@@ -8,6 +8,7 @@
     <%= text_input f, :type %>
     <%= text_input f, :delay %>
     <%= textarea f, :body %>
+    <%= error_tag f, :body %>
   
   <%= submit "Submit" %>
 <% end %>      
