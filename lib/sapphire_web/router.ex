@@ -27,7 +27,7 @@ defmodule SapphireWeb.Router do
     post "/project/:project_id/endpoint", EndpointController, :create
     get "/project/:project_id/endpoint/:endpoint_id", EndpointController, :show
 
-    get "/project/:project_id/api/*route", EndpointController, :get_api
+    get "/project/:project_id/api/*routes", EndpointController, :get_api
   end
 
   # Other scopes may use custom stacks.

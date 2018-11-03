@@ -151,19 +151,19 @@ defmodule Sapphire.Mocks do
     Repo.get_by(Endpoint, id: endpoint_id)
   end
 
-  def get_endpoint(%{"routes" => routes}) do
+  def get_endpoint(%{"project_id" => project_id, "routes" => routes}) do
     url = Enum.join(routes, "/") 
-    Repo.get_by(Endpoint, url: url)
+    Repo.get_by(Endpoint, url: url, project_id: project_id)
   end
 
-def get_endpoint(url) do
-    Repo.get_by(Endpoint, url: url)
+  def get_endpoint(url, project_id) do
+    Repo.get_by(Endpoint, url: url, project_id: project_id)
   end
 
   defp check_unique_url(attrs) do
     url = Map.get(attrs, "url")
     project_id = Map.get(attrs, "project_id")
-    case get_endpoint(url) do
+    case get_endpoint(url, project_id) do
       nil -> Map.put(attrs, "url_is_unique", true)
       _   -> Map.put(attrs, "url_is_unique", false)
     end

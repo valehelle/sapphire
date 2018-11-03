@@ -23,8 +23,8 @@ defmodule SapphireWeb.EndpointController do
       {:error, error} -> render conn, "new.html", changeset: error
     end
   end
-  def get_api(conn, %{"route" => route}) do
-    response = Mocks.get_endpoint(route)
+  def get_api(conn, params) do
+    response = Mocks.get_endpoint(params)
     |> get_body()
     |> Poison.decode!()
 
