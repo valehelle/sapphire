@@ -15,7 +15,8 @@ defmodule SapphireWeb.EndpointController do
   end
   
   def show(conn, params) do
-    endpoint = Mocks.get_endpoint(params)
+    user = Guardian.Plug.current_resource(conn)
+    endpoint = Mocks.get_endpoint(user.id, params)
     render conn, "show.html", endpoint: endpoint
   end
   def create(conn, params) do

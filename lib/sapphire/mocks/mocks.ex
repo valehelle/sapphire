@@ -154,8 +154,8 @@ defmodule Sapphire.Mocks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def get_endpoint(%{"project_id" => project_id, "endpoint_id" => endpoint_id}) do
-    Repo.get_by(Endpoint, id: endpoint_id)
+  def get_endpoint(user_id, %{"project_id" => project_id, "endpoint_id" => endpoint_id}) do
+    Repo.get_by(Endpoint, id: endpoint_id, project_id: project_id, user_id: user_id)
   end
 
   def get_endpoint(%{"project_id" => project_id, "routes" => routes}) do
