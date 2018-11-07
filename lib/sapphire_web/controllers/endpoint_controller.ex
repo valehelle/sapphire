@@ -5,7 +5,8 @@ defmodule SapphireWeb.EndpointController do
   alias Sapphire.Mocks
 
   def index(conn, params) do
-    endpoints = Mocks.list_endpoints(params)
+    user = Guardian.Plug.current_resource(conn)
+    endpoints = Mocks.list_endpoints(user.id, params)
     render conn, "index.html", endpoints: endpoints
   end
   def new(conn, %{"project_id" => project_id}) do
@@ -18,7 +19,8 @@ defmodule SapphireWeb.EndpointController do
     render conn, "show.html", endpoint: endpoint
   end
   def create(conn, params) do
-    case Mocks.create_endpoint(params) do
+    user = Guardian.Plug.current_resource(conn)
+    case Mocks.create_endpoint(user.id, params) do
       {:ok, endpoint} -> redirect(conn, to: endpoint_path(conn, :index, endpoint.project_id))
       {:error, error} -> render conn, "new.html", changeset: error, project_id: Map.get(params, "project_id")
     end

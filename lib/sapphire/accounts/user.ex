@@ -7,7 +7,8 @@ defmodule Sapphire.Accounts.User do
   schema "users" do
     field :email, :string
     field :password, :string
-
+    has_many :projects, Sapphire.Mocks.Project
+    has_many :endpoints, Sapphire.Mocks.Endpoint
     timestamps()
   end
 

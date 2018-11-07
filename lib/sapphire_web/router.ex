@@ -9,6 +9,14 @@ defmodule SapphireWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth do
+    plug Sapphire.Accounts.Pipeline
+  end
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated, error_handler: SapphireWeb.UserController
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -21,8 +29,10 @@ defmodule SapphireWeb.Router do
   get "/users/sign_in", UserController, :index
   post "/users/sign_in", UserController, :login
   post "/users/sign_out", UserController, :logout
+  end
 
-
+  scope "/", SapphireWeb do
+    pipe_through [:browser, :auth, :ensure_auth]
     get "/", PageController, :index
     get "/project", ProjectController, :index
     post "/project", ProjectController, :create
@@ -41,7 +51,6 @@ defmodule SapphireWeb.Router do
     put "/project/:project_id/api/*routes", EndpointController, :get_api
     delete "/project/:project_id/api/*routes", EndpointController, :get_api
   end
-
   # Other scopes may use custom stacks.
   # scope "/api", SapphireWeb do
   #   pipe_through :api

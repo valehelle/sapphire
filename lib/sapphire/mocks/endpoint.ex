@@ -2,6 +2,7 @@ defmodule Sapphire.Mocks.Endpoint do
   use Ecto.Schema
   import Ecto.Changeset
   alias Sapphire.Mocks.Project
+  alias Sapphire.Accounts.User
   schema "endpoints" do
     field :name, :string
     field :url, :string
@@ -11,6 +12,7 @@ defmodule Sapphire.Mocks.Endpoint do
     field :status_code, :integer
     field :url_is_unique, :boolean, virtual: true
     belongs_to :project, Project
+    belongs_to :user, User
 
     timestamps()
   end
@@ -18,8 +20,8 @@ defmodule Sapphire.Mocks.Endpoint do
   @doc false
   def changeset(endpoint, attrs) do
     endpoint
-    |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id])
+    |> validate_required([:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id])
     |> validate_unique_url()
     |> validate_json_format()
   end

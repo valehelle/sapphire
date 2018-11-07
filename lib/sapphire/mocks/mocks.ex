@@ -16,8 +16,11 @@ defmodule Sapphire.Mocks do
       [%Project{}, ...]
 
   """
-  def list_projects do
-    Repo.all(Project)
+  def list_projects(user_id) do
+    query = from p in Project, 
+            where: p.user_id == ^user_id,
+            order_by: p.inserted_at
+    Repo.all(query)
   end
 
   @doc """
@@ -48,9 +51,10 @@ defmodule Sapphire.Mocks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_project(attrs \\ %{}) do
+  def create_project(user_id, attrs) do
+    project_attrs = Map.put(attrs, "user_id", user_id)
     %Project{}
-    |> Project.changeset(attrs)
+    |> Project.changeset(project_attrs)
     |> Repo.insert()
   end
 
@@ -112,9 +116,10 @@ defmodule Sapphire.Mocks do
       [%Endpoint{}, ...]
 
   """
-  def list_endpoints(%{"project_id" => project_id}) do
+  def list_endpoints(user_id, %{"project_id" => project_id}) do
     query = from e in Endpoint, 
             where: e.project_id == ^project_id,
+            where: e.user_id == ^user_id,
             order_by: e.inserted_at
     Repo.all(query)
   end
@@ -169,12 +174,13 @@ defmodule Sapphire.Mocks do
     end
   end
 
-  def create_endpoint(params) do
+  def create_endpoint(user_id, params) do
     project_id = Map.get(params, "project_id")
 
     endpoint_attrs = Map.get(params, "endpoint")
     |> Map.put("status_code", 200)
     |> Map.put("project_id", project_id)
+    |> Map.put("user_id", user_id)
     |> check_unique_url()
     
     %Endpoint{}
