@@ -23,6 +23,7 @@ defmodule SapphireWeb.Router do
 
   scope "/", SapphireWeb do
   pipe_through :browser # Use the default browser stack
+  get "/", PageController, :index
   
   get "/users/sign_up", UserController, :register
   post "/users/sign_up", UserController, :register_user
@@ -33,7 +34,6 @@ defmodule SapphireWeb.Router do
 
   scope "/", SapphireWeb do
     pipe_through [:browser, :auth, :ensure_auth]
-    get "/", PageController, :index
     get "/project", ProjectController, :index
     post "/project", ProjectController, :create
     get "/project/new", ProjectController, :new

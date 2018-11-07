@@ -10,7 +10,8 @@ defmodule SapphireWeb.ProjectController do
     render conn, "index.html", projects: projects
   end
   def show(conn, %{"project_id" => project_id}) do
-    project = Mocks.get_project(project_id)
+    user = Guardian.Plug.current_resource(conn)
+    project = Mocks.get_project(user.id, project_id)
     render conn, "show.html", project: project
   end
   def new(conn, _params) do
