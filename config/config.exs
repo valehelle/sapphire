@@ -16,6 +16,11 @@ config :sapphire, SapphireWeb.Endpoint,
   render_errors: [view: SapphireWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Sapphire.PubSub,
            adapter: Phoenix.PubSub.PG2]
+           
+config :sapphire, Sapphire.Accounts.Guardian,
+  issuer: "sapphire", # Name of your app/company/product
+  secret_key: "sf/dnMKYVw9YfRs5mFDyPkT7Rm/bnatbEsf8QmJWLtf24PGhTCTF7dqU/9HogDTx",
+  redirect_uri: "/user/sign_in"
 
 # Configures Elixir's Logger
 config :logger, :console,
