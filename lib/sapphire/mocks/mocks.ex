@@ -37,7 +37,9 @@ defmodule Sapphire.Mocks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_project(id), do: Repo.get!(Project, id)
+  def get_project(user_id, id) do 
+    Repo.get_by(Project, id: id, user_id: user_id)
+  end 
 
   @doc """
   Creates a project.
@@ -174,6 +176,17 @@ defmodule Sapphire.Mocks do
     end
   end
 
+  defp is_user_authorise(attrs) do
+    project_id = Map.get(attrs, "project_id")
+    user_id = Map.get(attrs, "user_id")
+
+    case get_project(user_id, project_id) do 
+      nil -> Map.put(attrs, "is_user_authorise", false)
+      project -> Map.put(attrs, "is_user_authorise", true)
+    end
+    
+  end
+
   def create_endpoint(user_id, params) do
     project_id = Map.get(params, "project_id")
 
@@ -182,6 +195,7 @@ defmodule Sapphire.Mocks do
     |> Map.put("project_id", project_id)
     |> Map.put("user_id", user_id)
     |> check_unique_url()
+    |> is_user_authorise()
     
     %Endpoint{}
     |> Endpoint.changeset(endpoint_attrs)

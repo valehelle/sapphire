@@ -11,6 +11,7 @@ defmodule Sapphire.Mocks.Endpoint do
     field :body, :string
     field :status_code, :integer
     field :url_is_unique, :boolean, virtual: true
+    field :is_user_authorise, :boolean, virtual: true
     belongs_to :project, Project
     belongs_to :user, User
 
@@ -20,10 +21,11 @@ defmodule Sapphire.Mocks.Endpoint do
   @doc false
   def changeset(endpoint, attrs) do
     endpoint
-    |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id])
-    |> validate_required([:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id])
+    |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id, :is_user_authorise])
+    |> validate_required([:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id, :is_user_authorise])
     |> validate_unique_url()
     |> validate_json_format()
+    |> validate_user_authority()
   end
 
   defp validate_unique_url(changeset) do 
@@ -32,6 +34,16 @@ defmodule Sapphire.Mocks.Endpoint do
         []
       else
         [url: "url must be unique"]
+      end
+
+    end
+  end
+  defp validate_user_authority(changeset) do 
+    changeset = validate_change changeset, :is_user_authorise, fn :is_user_authorise, is_user_authorise  ->
+      if is_user_authorise do
+        []
+      else
+        [name: "You are not authorize"]
       end
 
     end

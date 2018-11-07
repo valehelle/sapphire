@@ -1,4 +1,5 @@
 <h2>Projects</h2>
   <%= for project <- @projects do %>
     <h1><%= project.name %></h1>
+    <h6><%= project.id %></h6>
   <% end %>
