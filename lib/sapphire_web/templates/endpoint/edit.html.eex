@@ -1,16 +1,16 @@
 <div class = "container" >
     <div class="row" >
         <div class = "col-sm col-md-8 offset-md-2" style = "padding-top:30px; padding-bottom: 0px; border-left: 1px solid; color: rgba(0,0,0,.1);">
-          <%= link("Project", to: project_path(@conn, :index)) %>
-          <h2 style = "color:black">Create Endpoint</h2>
-          <%= form_for @changeset, endpoint_path(@conn, :create, @project_id), fn f -> %>
+          <%= link("Project", to: project_path(@conn, :index)) %> <span style = "color:black">></span> <%= link("Endpoint", to: endpoint_path(@conn, :index, @endpoint.project_id)) %>
+          <h2 style = "color:black">Edit Endpoint</h2>
+          <%= form_for @changeset, endpoint_path(@conn, :update, @endpoint.project_id, @endpoint.id), fn f -> %>
             <div class = "form-group" style = "color:black">
               <h6>Name: </h6>
               <%= text_input f, :name, class: "form-control" %>
               <%= error_tag f, :name %>
               <br>
               <h6>Path: </h6>
-              <h6><%= getAPIPath(@conn, @project_id) %></h6>
+              <h6><%= getAPIPath(@conn, @endpoint.project_id) %></h6>
               <%= text_input f, :url, class: "form-control" %>
               <%= error_tag f, :url %>
               <br>

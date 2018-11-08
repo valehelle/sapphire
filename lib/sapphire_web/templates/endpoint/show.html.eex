@@ -7,9 +7,11 @@
           <%= link("Project", to: project_path(@conn, :index)) %> <span style = "color:black">></span> <%= link("Endpoint", to: endpoint_path(@conn, :index, @endpoint.project_id)) %>
           <div style = "color: black">
             <h2><%= @endpoint.name %></h2>
-            <%= link("Edit", to: endpoint_path(@conn, :new, @endpoint.project_id), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
-            <h6>Path: <%= getBaseURI(@conn, @endpoint.project_id) %><%= @endpoint.url%></h6>
+            <%= link("Edit", to: endpoint_path(@conn, :edit, @endpoint.project_id, @endpoint.id), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
+            <h6>Path: <%= getAPIPath(@conn, @endpoint.project_id) %><%= @endpoint.url%></h6>
+            <h6>Delay: <%= @endpoint.delay %></h6>
             <h6>Body: <%= @endpoint.body %></h6>
+            
             
           </div>
           <hr style = "margin-left: -15px; margin-right: -15px;  margin-bottom:0px; margin-top: 20px;"/>

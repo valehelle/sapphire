@@ -44,6 +44,8 @@ defmodule SapphireWeb.Router do
     get "/project/:project_id/endpoint/new", EndpointController, :new
     post "/project/:project_id/endpoint", EndpointController, :create
     get "/project/:project_id/endpoint/:endpoint_id", EndpointController, :show
+    get "/project/:project_id/endpoint/:endpoint_id/edit", EndpointController, :edit
+    put "/project/:project_id/endpoint/:endpoint_id/edit", EndpointController, :update
 
     get "/project/:project_id/api/*routes", EndpointController, :get_api
     post "/project/:project_id/api/*routes", EndpointController, :get_api

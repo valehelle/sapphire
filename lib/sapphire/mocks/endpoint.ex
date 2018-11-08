@@ -22,6 +22,7 @@ defmodule Sapphire.Mocks.Endpoint do
     |> cast(attrs, [:name, :url, :delay, :body, :project_id, :url_is_unique, :user_id, :is_user_authorise])
     |> validate_required([:name, :url, :delay, :body, :project_id, :url_is_unique, :user_id, :is_user_authorise])
     |> validate_unique_url()
+    |> validate_format(:url, ~r/^[^\/]\S*$[^\/]/)
     |> validate_json_format()
     |> validate_user_authority()
   end

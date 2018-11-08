@@ -175,6 +175,21 @@ defmodule Sapphire.Mocks do
       _   -> Map.put(attrs, "url_is_unique", false)
     end
   end
+  defp check_unique_url(attrs, endpoint_id) do
+    url = Map.get(attrs, "url")
+    project_id = Map.get(attrs, "project_id")
+    case get_endpoint(url, project_id) do
+      nil        -> Map.put(attrs, "url_is_unique", true)
+      endpoint   -> 
+      if (endpoint.id == endpoint_id) do
+        Map.put(attrs, "url_is_unique", true)
+      else 
+        Map.put(attrs, "url_is_unique", false)
+      end
+      
+    end
+  end
+
 
   defp is_user_authorise(attrs) do
     project_id = Map.get(attrs, "project_id")
@@ -214,8 +229,15 @@ defmodule Sapphire.Mocks do
 
   """
   def update_endpoint(%Endpoint{} = endpoint, attrs) do
+
+    endpoint_attrs = Map.get(attrs, "endpoint")
+    |> Map.put("project_id", endpoint.project_id)
+    |> Map.put("user_id", endpoint.user_id)
+    |> check_unique_url(endpoint.id)
+    |> is_user_authorise()
+
     endpoint
-    |> Endpoint.changeset(attrs)
+    |> Endpoint.changeset(endpoint_attrs)
     |> Repo.update()
   end
 
