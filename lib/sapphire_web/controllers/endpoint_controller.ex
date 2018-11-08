@@ -4,10 +4,11 @@ defmodule SapphireWeb.EndpointController do
   alias Sapphire.Mocks.Endpoint
   alias Sapphire.Mocks
 
-  def index(conn, params) do
+  def index(conn, %{"project_id" => project_id}) do
     user = Guardian.Plug.current_resource(conn)
-    endpoints = Mocks.list_endpoints(user.id, params)
-    render conn, "index.html", endpoints: endpoints
+    endpoints = Mocks.list_endpoints(user.id, project_id)
+    project = Mocks.get_project(user.id, project_id)
+    render conn, "index.html", endpoints: endpoints, project: project
   end
   def new(conn, %{"project_id" => project_id}) do
     changeset = Mocks.change_endpoint(%Endpoint{})

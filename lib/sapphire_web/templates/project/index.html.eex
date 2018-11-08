@@ -1,5 +1,15 @@
-<h2>Projects</h2>
-  <%= for project <- @projects do %>
-    <h1><%= project.name %></h1>
-    <h6><%= project.id %></h6>
-  <% end %>
+<div class = "container" >
+    <div class="row" >
+        <div class = "col-sm col-md-8 offset-md-2" style = "padding-top:30px; padding-bottom: 0px; border-left: 1px solid; color: rgba(0,0,0,.1);">
+          <h2 style = "color:black">Project</h2>
+           <%= link("New", to: project_path(@conn, :new), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
+          <div style = "color:black">
+          <%= for project <- @projects do %>
+            <%= link(project.name, to: endpoint_path(@conn, :index, project.id)) %>
+          <% end %>
+          </div>
+          <hr style = "margin-left: -15px; margin-right: -15px;  margin-bottom:0px; margin-top: 20px;"/>
+
+        </div>
+    </div>
+</div>

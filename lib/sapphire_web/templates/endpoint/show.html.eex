@@ -1,5 +1,19 @@
-<h2>Show</h2>
-    <h1><%= @endpoint.name %></h1>
-    <h6><%= @endpoint.url %></h6>
-    <h6><%= @endpoint.id %></h6>
-    <h6><%= @endpoint.body %></h6>
+
+
+
+<div class = "container" >
+    <div class="row" >
+        <div class = "col-sm col-md-8 offset-md-2" style = "padding-top:30px; padding-bottom: 0px; border-left: 1px solid; color: rgba(0,0,0,.1);">
+          <%= link("Project", to: project_path(@conn, :index)) %> <span style = "color:black">></span> <%= link("Endpoint", to: endpoint_path(@conn, :index, @endpoint.project_id)) %>
+          <div style = "color: black">
+            <h2><%= @endpoint.name %></h2>
+            <%= link("Edit", to: endpoint_path(@conn, :new, @endpoint.project_id), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
+            <h6>Path: <%= getBaseURI(@conn, @endpoint.project_id) %><%= @endpoint.url%></h6>
+            <h6>Body: <%= @endpoint.body %></h6>
+            
+          </div>
+          <hr style = "margin-left: -15px; margin-right: -15px;  margin-bottom:0px; margin-top: 20px;"/>
+
+        </div>
+    </div>
+</div>

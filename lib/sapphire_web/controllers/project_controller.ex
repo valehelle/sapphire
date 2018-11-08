@@ -16,6 +16,7 @@ defmodule SapphireWeb.ProjectController do
   end
   def new(conn, _params) do
     changeset = Mocks.change_project(%Project{})
+    user = Guardian.Plug.current_resource(conn)
     render conn, "new.html", changeset: changeset
   end
   def create(conn, %{"project" => project}) do

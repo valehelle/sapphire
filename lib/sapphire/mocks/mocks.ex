@@ -118,7 +118,7 @@ defmodule Sapphire.Mocks do
       [%Endpoint{}, ...]
 
   """
-  def list_endpoints(user_id, %{"project_id" => project_id}) do
+  def list_endpoints(user_id, project_id) do
     query = from e in Endpoint, 
             where: e.project_id == ^project_id,
             where: e.user_id == ^user_id,
@@ -191,7 +191,6 @@ defmodule Sapphire.Mocks do
     project_id = Map.get(params, "project_id")
 
     endpoint_attrs = Map.get(params, "endpoint")
-    |> Map.put("status_code", 200)
     |> Map.put("project_id", project_id)
     |> Map.put("user_id", user_id)
     |> check_unique_url()

@@ -1,7 +1,16 @@
-<h2>Endpoint</h2>
-  <%= for endpoint <- @endpoints do %>
-    <h1><%= endpoint.name %></h1>
-    <h6><%= endpoint.url %></h6>
-    <h6><%= endpoint.id %></h6>
-    <h6><%= endpoint.project_id %></h6>
-  <% end %>
+<div class = "container" >
+    <div class="row" >
+        <div class = "col-sm col-md-8 offset-md-2" style = "padding-top:30px; padding-bottom: 0px; border-left: 1px solid; color: rgba(0,0,0,.1);">
+          <%= link("Project", to: project_path(@conn, :index)) %>
+          <h2 style = "color:black; margin-top: 10px;">Endpoint</h2>
+          <%= link("New", to: endpoint_path(@conn, :new, @project.id), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
+          <div style = "color:black">
+          <%= for endpoint <- @endpoints do %>
+            <%= link(endpoint.name, to: endpoint_path(@conn, :show, @project.id, endpoint.id)) %> <br>
+          <% end %>
+          </div>
+          <hr style = "margin-left: -15px; margin-right: -15px;  margin-bottom:0px; margin-top: 20px;"/>
+
+        </div>
+    </div>
+</div>

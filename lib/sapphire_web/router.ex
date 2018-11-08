@@ -22,9 +22,8 @@ defmodule SapphireWeb.Router do
   end
 
   scope "/", SapphireWeb do
-  pipe_through :browser # Use the default browser stack
+  pipe_through [:browser, :auth] # Use the default browser stack
   get "/", PageController, :index
-  
   get "/users/sign_up", UserController, :register
   post "/users/sign_up", UserController, :register_user
   get "/users/sign_in", UserController, :index

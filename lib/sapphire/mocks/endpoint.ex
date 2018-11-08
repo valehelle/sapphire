@@ -6,10 +6,8 @@ defmodule Sapphire.Mocks.Endpoint do
   schema "endpoints" do
     field :name, :string
     field :url, :string
-    field :type, :string
     field :delay, :string
     field :body, :string
-    field :status_code, :integer
     field :url_is_unique, :boolean, virtual: true
     field :is_user_authorise, :boolean, virtual: true
     belongs_to :project, Project
@@ -21,8 +19,8 @@ defmodule Sapphire.Mocks.Endpoint do
   @doc false
   def changeset(endpoint, attrs) do
     endpoint
-    |> cast(attrs, [:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id, :is_user_authorise])
-    |> validate_required([:name, :url, :type, :delay, :body, :status_code, :project_id, :url_is_unique, :user_id, :is_user_authorise])
+    |> cast(attrs, [:name, :url, :delay, :body, :project_id, :url_is_unique, :user_id, :is_user_authorise])
+    |> validate_required([:name, :url, :delay, :body, :project_id, :url_is_unique, :user_id, :is_user_authorise])
     |> validate_unique_url()
     |> validate_json_format()
     |> validate_user_authority()

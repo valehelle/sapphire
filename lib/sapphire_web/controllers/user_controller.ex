@@ -49,7 +49,7 @@ defmodule SapphireWeb.UserController do
   defp login_reply({:ok, user}, conn, redirect) do
     conn
     |> Guardian.Plug.sign_in(user)
-    |> redirect(to: redirect)
+    |> redirect(to: project_path(conn, :index))
   end
 
   def logout(conn, _) do

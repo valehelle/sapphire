@@ -1,36 +1,20 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-</div>
+<div class="jumbotron jumbotron-fullheight bg-growth bg-dark text-white mb-0 radius-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-6">
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
+            <h1 class="display-1 text-light display-fix">Owllang</h1>
+            <span class="lead">Create mock API easily.</span>
 
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
-  </div>
+            <div class="mt-4">
+              <%= link("Register", to: user_path(@conn, :register), class: "btn btn-secondary btn-lg my-2 mr-2") %>
+              <%= if Guardian.Plug.current_resource(@conn) do %>
+                <%= link("Go to Project", to: project_path(@conn, :index), class: "btn btn-outline-light btn-hover-text-dark btn-lg my-2") %>
+              <% end %>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
 </div>

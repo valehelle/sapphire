@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hello Sapphire!</title>
+    <title>Owllang</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
@@ -17,48 +17,30 @@
   </head>
 
   <body>
-    <div class="jumbotron jumbotron-fullheight bg-growth bg-dark text-white mb-0 radius-0">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-6">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand " href="/">Owllang</a>
 
-            <h1 class="display-1 text-light display-fix">Growth</h1>
-            <span class="lead">This is a starter template with a jumbotron.</span>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mt-2 mt-md-0 ml-auto">
+          <li class="nav-item active">
+          <%= if Guardian.Plug.current_resource(@conn) do %>
+            <%= button("Logout", to: user_path(@conn, :logout), class: "btn btn-outline-light") %> 
+          <% else %>
+            <%= link("Login", to: user_path(@conn, :login), class: "btn btn-outline-light") %>
+          <% end %>
+          </li>
 
-            <div class="mt-4">
-              <a href="#!"
-                class="btn btn-secondary btn-lg my-2 mr-2">
-                <span>A Button</span>
-              </a>
-
-              <a href="#!"
-                class="btn btn-outline-light btn-hover-text-dark btn-lg my-2">
-                <span>Another Button</span>
-              </a>
-            </div>
-
-          </div>
-        </div>
+        </ul>
       </div>
-    </div>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-
-    </div> <!-- /container -->
+    </nav>
+    <main role="main">
+      <%= render @view_module, @view_template, assigns %>
+    </main>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
