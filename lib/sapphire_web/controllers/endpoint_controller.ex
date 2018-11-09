@@ -49,14 +49,21 @@ defmodule SapphireWeb.EndpointController do
 
 
   def get_api(conn, params) do
-    response = Mocks.get_endpoint(params)
-    |> get_body()
+    endpoint = Mocks.get_endpoint(params)
+    response = get_body(endpoint)
     |> Poison.decode!()
-
+    delay = get_delay(endpoint)
+    Process.sleep(delay)
     json conn, response
   end
 
-
+  defp get_delay(endpoint) do 
+    case endpoint.delay do
+      "Normal" -> 0
+      "Slow" -> 5000
+      "Very Slow" ->10000
+    end
+  end
 
   defp get_body(endpoint) do 
     endpoint.body
