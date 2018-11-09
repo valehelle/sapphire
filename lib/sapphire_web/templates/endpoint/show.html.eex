@@ -8,9 +8,11 @@
           <div style = "color: black">
             <h2><%= @endpoint.name %></h2>
             <%= link("Edit", to: endpoint_path(@conn, :edit, @endpoint.project_id, @endpoint.id), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
-            <h6>Path: <%= getAPIPath(@conn, @endpoint.project_id) %><%= @endpoint.url%></h6>
-            <h6>Response Time: <%= @endpoint.delay %></h6>
-            <h6>Body: <%= @endpoint.body %></h6>
+            <h6>Path:</h6><h6> <%= getAPIPath(@conn, @endpoint.project_id) %><%= @endpoint.url%></h6>
+            <br>
+            <h6>Response Time: </h6> <h6><%= @endpoint.delay %></h6>
+            <br>
+            <h6>Response:</h6><pre> <code><%= @endpoint.body %></code></pre>
             
             
           </div>
