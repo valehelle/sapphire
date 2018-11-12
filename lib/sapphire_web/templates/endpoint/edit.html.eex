@@ -14,8 +14,9 @@
               <%= text_input f, :url, class: "form-control" %>
               <%= error_tag f, :url %>
               <br>
-              <h6>Delay: </h6>
+              <h6>Response Time: </h6>
               <%= select f, :delay, ["Normal", "Slow", "Very Slow"] %>
+              <br>
               <br>
               <%= error_tag f, :delay %>
               <h6>Body: </h6>

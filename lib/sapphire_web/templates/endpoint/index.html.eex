@@ -5,16 +5,25 @@
           <h2 style = "color:black; margin-top: 10px;">Endpoint</h2>
           <%= link("New", to: endpoint_path(@conn, :new, @project.id), class: "btn btn-primary", style: "margin-bottom: 30px;") %>
           <div style = "color:black">
-          <%= for endpoint <- @endpoints do %>
-            <hr style = "margin-left: -15px; margin-right: -15px;  margin-bottom:0px; margin-top: 20px;"/>
-            <br>
-            <%= link(endpoint.name, to: endpoint_path(@conn, :show, @project.id, endpoint.id)) %>
-            <h6 style = "font-size:9pt"><%= endpoint.url %></h6>
-
-          <% end %>
+            <%= for endpoint <- @endpoints do %>
+              <div class="card border-primary mb-3 text-center" style = "cursor: pointer" onClick = "goToEndpoint('<%= endpoint_path(@conn, :show, @project.id, endpoint.id) %>')">
+                <div class="card-body">
+                  <blockquote class="card-blockquote">
+                    <p style = "text-align: left"><%= endpoint.name %></p>
+                    <footer style = "text-align: left">
+                      <cite style = "text-align: left;"><%= endpoint.url %></cite>
+                    </footer>
+                  </blockquote>
+                </div>
+              </div>
+            <% end %>
           </div>
           <hr style = "margin-left: -15px; margin-right: -15px;  margin-bottom:0px; margin-top: 20px;"/>
-
         </div>
     </div>
 </div>
+<script>
+  function goToEndpoint(path) {
+    window.location.href = path
+  }
+</script>
